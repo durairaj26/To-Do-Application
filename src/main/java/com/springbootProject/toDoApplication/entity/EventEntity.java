@@ -2,12 +2,15 @@ package com.springbootProject.toDoApplication.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+//Create an event with name, description, date and time 
+//(a field ‘status’ should be managed in the backend,
+//the initial value of this would be ‘Pending’).
 @Entity
 @Table(name="events")
 public class EventEntity {
@@ -18,7 +21,10 @@ public class EventEntity {
 	private String name;
 	private String description;
 	private LocalDateTime dateandtime;
-	private String status="Pending";
+	
+	@Column(columnDefinition = "default 'Pending'")
+    private String status = "Pending";
+	
 	public EventEntity(Long id, String name, String description, LocalDateTime dateandtime, String status) {
 		super();
 		this.id = id;
@@ -27,6 +33,11 @@ public class EventEntity {
 		this.dateandtime = dateandtime;
 		this.status = status;
 	}
+	
+	public EventEntity() {
+	
+	}
+
 	public Long getId() {
 		return id;
 	}
