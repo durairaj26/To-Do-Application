@@ -23,7 +23,7 @@ public class EventEntity {
 	private LocalDateTime dateandtime;
 	
 	@Column(columnDefinition = "default 'Pending'")
-    private String status = "Pending";
+	private String status = "Pending";
 	
 	public EventEntity(Long id, String name, String description, LocalDateTime dateandtime, String status) {
 		super();
