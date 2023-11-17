@@ -22,27 +22,38 @@ public class EventController {
 	@Autowired
 	private EventServices eventService;
 	
-	@PostMapping("/create")
+	@PostMapping(path="/create")
 	public EventEntity createEvent(@RequestBody EventEntity eventEntity) {
 		return eventService.createEvent(eventEntity);
 	}
 	
 	//Get all the created events.
-	@GetMapping("/allEvents")
+	@GetMapping(path="/listAll")
 	public List<EventEntity> getAllEvent(){
 		return eventService.getAllEvent();
 	}
 	
 	//Update an existing event
-	@PutMapping("/update")
-	public void updateEvent(@RequestBody EventEntity eventEntity) {
-		eventService.updateEvent(eventEntity);
+
+	@PutMapping(path="/update/{id}")
+	public EventEntity updateEvent(@RequestBody EventEntity eventEntity, @PathVariable Long id) {
+		return eventService.updateEvent(eventEntity, id);
 	}
-	
+
 	//Delete an existing event
 	@DeleteMapping("/delete/{id}")
 	public void deleteEvent(@PathVariable Long id) {
 		eventService.deleteEvent(id);
+	}
+	
+	@PostMapping("/changeStatus/{id}")
+	public void changeStatusAsCompleted(@PathVariable Long id) {
+		eventService.changeStatusAsCompleted(id);
+	}
+	
+	@GetMapping(path="/groupByStatus/{status}")
+	public List<EventEntity>groupEventByStatus(@PathVariable String status){
+		return eventService.groupEventByStatus(status);
 	}
 
 }
