@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 //Create an event with name, description, date and time 
 //(a field ‘status’ should be managed in the backend,
 //the initial value of this would be ‘Pending’).
@@ -68,6 +69,11 @@ public class EventEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@Transient
+	public String isOverdue() {
+	    return ("Pending".equals(status) && dateandtime.isBefore(LocalDateTime.now())) ? "Overdue" : status;
+	}
+
 	@Override
 	public String toString() {
 		return "EventEntity [id=" + id + ", name=" + name + ", description=" + description + ", dateandtime=" + dateandtime
