@@ -1,6 +1,7 @@
 package com.springbootProject.toDoApplication.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,7 @@ public class EventController {
 	//Get all the created events.
 	@GetMapping(path="/listAll")
 	public List<EventEntity> getAllEvent(){
+		
 		return eventService.getAllEvent();
 	}
 	
@@ -46,14 +48,16 @@ public class EventController {
 		eventService.deleteEvent(id);
 	}
 	
+	//Change status as pending to completed
 	@PostMapping("/changeStatus/{id}")
 	public void changeStatusAsCompleted(@PathVariable Long id) {
 		eventService.changeStatusAsCompleted(id);
 	}
 	
-	@GetMapping(path="/groupByStatus/{status}")
-	public List<EventEntity>groupEventByStatus(@PathVariable String status){
-		return eventService.groupEventByStatus(status);
+	//Group events by status
+	@GetMapping("/groups")
+	public Map<String, List<EventEntity>> getGroup(){
+		return eventService.getGroup();
 	}
 
 }
