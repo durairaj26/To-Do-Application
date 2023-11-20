@@ -69,6 +69,8 @@ public class EventEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	//Display Overdue in status field for outdated events
 	@Transient
 	public String isOverdue() {
 	    return ("Pending".equals(status) && dateandtime.isBefore(LocalDateTime.now())) ? "Overdue" : status;
