@@ -16,15 +16,18 @@ public class EventServices {
 
 	@Autowired
 	private EventRepository eventRepository;
-
+	
+	//Create event.
 	public EventEntity createEvent(EventEntity eventEntity) {
 		return eventRepository.save(eventEntity);
 	}
-
+	
+	// List out all events.
 	public List<EventEntity> getAllEvent() {
 		return eventRepository.findAll();
 	}
 
+	//Update an existing event by id.
 	public EventEntity updateEvent(EventEntity eventEntity, Long id) {
 		EventEntity updateEventEntity = eventRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Event not found"));
@@ -34,13 +37,15 @@ public class EventServices {
 		return eventRepository.save(updateEventEntity);
 
 	}
-
+	
+	//Delete event by id.
 	public void deleteEvent(Long id) {
 		eventRepository.findById(id).orElseThrow(() -> new RuntimeException("Event not found"));
 			eventRepository.deleteById(id);
 		
 	}
-
+	
+	// Change Event status as completed.
 	public void changeStatusAsCompleted(Long id) {
 
 		EventEntity findEventId = eventRepository.findById(id)
@@ -49,7 +54,7 @@ public class EventServices {
 		eventRepository.save(findEventId);
 	}
 
-
+	//Group events by status of each event.
 	public Map<String, List<EventEntity>> getGroup() {
 	    List<EventEntity> overdueEvents = eventRepository.findAll().stream()
 	            .filter(event -> "Overdue".equals(event.isOverdue()))
